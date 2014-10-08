@@ -1,3 +1,6 @@
+/* globals require, module */
+'use strict';
+
 var router = require('express').Router();
 var Post = require('mongoose').model('Post');
 

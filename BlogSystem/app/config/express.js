@@ -1,3 +1,6 @@
+/* globals require, module */
+'use strict';
+
 var path = require('path');
 var express = require('express');
 var morgan = require('morgan');
@@ -9,7 +12,7 @@ var session = require('express-session');
 var moment = require('moment');
 
 module.exports = function (app, rootPath) {
-  app.set('views', path.join(rootPath, '/views'));
+  app.set('views', path.join(rootPath, 'app/views'));
   app.set('view engine', 'jade');
 
   app.locals.moment = moment;
