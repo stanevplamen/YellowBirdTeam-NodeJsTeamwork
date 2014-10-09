@@ -9,7 +9,7 @@ var Comment = require('mongoose').model('Comment');
 router.get('/', function (req, res) {
   Post.find().exec(function (err, posts) {
     if (err) {
-      return res.send(500, err);
+      return res.status(500).send(err);
     }
 
     return res.status(200).json(posts);
@@ -19,7 +19,7 @@ router.get('/', function (req, res) {
 router.post('/', function (req, res) {
   Post.create(req.body, function(err, post) {
     if(err) {
-      return res.send(res, err);
+      return res.status(500).send(err);
     }
 
     return res.status(201).json(post);
@@ -31,17 +31,17 @@ router.get('/:id', function (req, res) {
   .populate('author')
   .exec(function (err, post) {
     if (err) {
-      return res.send(500, err);
+      return res.status(500).send(err);
     }
 
     if (!post) {
-      return res.send(404);
+      return res.status(404).end();
     }
 
     Comment.find({post: post._id})
     .exec(function (err, comments) {
       if (err) {
-        return res.send(500, err);
+        return res.status(500).send(err);
       }
 
       if (!comments) {
@@ -61,17 +61,17 @@ router.put('/:id', function (req, res) {
   Post.findById(req.params.id)
   .exec(function (err, post) {
     if (err) {
-      return res.send(500, err);
+      return res.status(500).send(err);
     }
 
     if(!post) {
-      return res.send(404);
+      return res.status(404).end();
     }
 
     post = lodash.merge(post, req.body);
     post.save(function (err, post) {
       if (err) {
-        return res.send(500, err);
+        return res.status(500).send(err);
       }
 
       return res.status(200).json(post);
@@ -83,19 +83,19 @@ router.delete('/:id', function (req, res) {
   Post.findById(req.params.id)
   .exec(function (err, post) {
     if (err) {
-      return res.send(500, err);
+      return res.status(500).send(err);
     }
 
     if(!post) {
-      return res.send(404);
+      return res.status(404).end();
     }
 
     post.remove(function (err) {
       if (err) {
-        return res.send(500, err);
+        return res.status(500).send(err);
       }
 
-      return res.send(204);
+      return res.status(204).end();
     });
   });
 });
