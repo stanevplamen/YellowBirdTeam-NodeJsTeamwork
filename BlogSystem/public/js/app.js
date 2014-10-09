@@ -21,6 +21,9 @@ blogApp.config(['$routeProvider', '$locationProvider',
       .when('/posts', {
         templateUrl: '/posts'
       })
+      .when('/posts/:id', {
+        templateUrl: '/posts'
+      })
       .when('/posts/create', {
         templateUrl: '/posts/create'
       });

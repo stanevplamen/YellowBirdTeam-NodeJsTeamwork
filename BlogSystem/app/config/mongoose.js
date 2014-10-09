@@ -5,8 +5,9 @@ var path = require('path');
 var mongoose = require('mongoose');
 
 module.exports = function(connectionString, rootPath) {
-  require(path.join(rootPath, 'app/models/post'));
   require(path.join(rootPath, 'app/models/user'));
+  require(path.join(rootPath, 'app/models/post'));
+  require(path.join(rootPath, 'app/models/comment'));
 
   mongoose.connect(connectionString);
   var db = mongoose.connection;
