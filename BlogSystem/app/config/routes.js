@@ -9,9 +9,11 @@ module.exports = function (app, rootPath) {
   var users = require(path.join(rootPath, 'app/routes/users'));
 
   app.use('/posts', posts);
+
   app.use('/posts/:pid/comments', function (req, res, next) {
     req.postId = req.params.pid;
     next();
   }, comments);
+
   app.use('/users', users);
 };

@@ -38,7 +38,7 @@ module.exports = function (passport) {
 
       newUser.save(function (err, user) {
         if (err) {
-            throw err;
+            done(err);
         }
 
         return done(null, user);
@@ -48,7 +48,7 @@ module.exports = function (passport) {
 
   passport.use('local-login', new LocalStrategy({
     usernameField: 'email',
-    passwordField: 'password',
+    passwordField: 'password'
   }, function (email, password, done) {
     User.findOne({email: email}, function (err, user) {
       if (err) {
