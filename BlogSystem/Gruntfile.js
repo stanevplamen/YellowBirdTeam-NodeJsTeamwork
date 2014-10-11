@@ -52,5 +52,5 @@ module.exports = function (grunt) {
     },
   });
 
-  grunt.registerTask('serve', ['jade', 'express', 'watch']);
+  grunt.registerTask('serve', [/*'jade', */'express', 'watch']);
 };

@@ -4,19 +4,35 @@
 var router = require('express').Router();
 var passport = require('passport');
 
-router.post('/register', passport.authenticate('local-register', {
-  successRedirect: '/',
-  failureRedirect: '/users/register'
-}));
+module.exports = function (usersData) {
+  router.post('/register', function (req, res) {
+    usersData.register(req.body)
+      .then(function success(user) {
+        res.status(201).json(user);
+      }, function error(err) {
+        res.status(500).send(err);
+      });
+  });
 
-router.post('/login', passport.authenticate('local-login', {
-  successRedirect: '/',
-  failureRedirect: '/users/login'
-}));
+  router.post('/login', function (req, res) {
+    usersData.login(req.body)
+      .then(function success(loggedUser){
+        res.status(200).json(loggedUser);
+      }, function error(err) {
+        res.status(400).send(err);
+      });
+  });
 
-router.get('/logout', function(req, res) {
-  req.logout();
-  res.redirect('/');
-});
+  router.put('/logout', passport.authenticate('bearer', { session: false }),
+    function(req, res) {
+      usersData.logout(req.user)
+        .then(function success() {
+          res.status(200).end();
+        }, function error(err) {
+          res.status(400).send(err);
+        });
+    }
+  );
 
-module.exports = router;
+  return router;
+};

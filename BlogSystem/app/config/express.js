@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var favicon = require('serve-favicon');
 var passport = require('passport');
-var session = require('express-session');
+// var session = require('express-session');
 var moment = require('moment');
 
 module.exports = function (app, rootPath) {
@@ -26,11 +26,11 @@ module.exports = function (app, rootPath) {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
 
-  app.use(session({
-    secret: 'threelongbeards',
-    resave: true,
-    saveUninitialized: true
-  }));
+  // app.use(session({
+  //   secret: 'threelongbeards',
+  //   resave: true,
+  //   saveUninitialized: true
+  // }));
   app.use(passport.initialize());
-  app.use(passport.session());
+  // app.use(passport.session());
 };
